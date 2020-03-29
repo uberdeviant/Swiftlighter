@@ -1,7 +1,7 @@
 ![Swiftlighter Image](https://repository-images.githubusercontent.com/250987524/8b1ad700-71b6-11ea-82ca-9fc0100a6ca1)
 
 # Swiftlighter
-**Swift syntax highlighter**
+**Swift Syntax Highlighter**
 
 # About:
 
