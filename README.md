@@ -17,8 +17,7 @@
 
 ### Examples and help page:
 
-There is the main page of **Swiftlighter** with [Examples and Help](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html)
-You can donwload compiled Swiftlighter over there.
+There is the main page of **Swiftlighter** with [Examples and Help](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html). You can donwload compiled Swiftlighter over there.
 
 # License:
 
