@@ -181,10 +181,6 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         var set = Set<IndexPath>()
         set.insert(IndexPath(item: indexOfSelectedStyle, section: 0))
         stylesCollectionView.deselectItems(at: set)
-        
-        deleteButton.isEnabled = true
-        editButton.isEnabled = true
-        
     }
     
     private func executeEngine(){
