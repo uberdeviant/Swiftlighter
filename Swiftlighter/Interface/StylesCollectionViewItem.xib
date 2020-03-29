@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="StylesCollectionViewItem" customModule="Swiftlighter" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundBox" destination="f7V-bf-gZa" id="bcn-nz-LrP"/>
+                <outlet property="commentBox" destination="mSH-t2-Jgm" id="qco-PY-ZUK"/>
+                <outlet property="keywordBox" destination="iqa-6d-RtG" id="kaX-AZ-P6m"/>
+                <outlet property="numBox" destination="u7n-ZW-LB4" id="Xf2-53-I9e"/>
+                <outlet property="stringBox" destination="KEK-BZ-S9t" id="6hE-My-hdm"/>
+                <outlet property="textBox" destination="RWL-2M-Grp" id="egf-Hd-B09"/>
+                <outlet property="typeBox" destination="7Vf-em-HpU" id="LcU-Mm-Obi"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView wantsLayer="YES" id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="line" cornerRadius="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="f7V-bf-gZa">
+                    <rect key="frame" x="3" y="4" width="40" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" wantsLayer="YES" ambiguous="YES" id="MBA-wX-YeT">
+                        <rect key="frame" x="1" y="1" width="38" height="38"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <box fixedFrame="YES" boxType="custom" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="iqa-6d-RtG">
+                                <rect key="frame" x="4" y="28" width="11" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="AfS-oA-UhA">
+                                    <rect key="frame" x="1" y="1" width="9" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </shadow>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" borderType="bezel" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="RWL-2M-Grp">
+                                <rect key="frame" x="18" y="28" width="17" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="aNT-78-YfL">
+                                    <rect key="frame" x="1" y="1" width="15" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </shadow>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="7Vf-em-HpU">
+                                <rect key="frame" x="4" y="17" width="17" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="XcH-e1-i9k">
+                                    <rect key="frame" x="1" y="1" width="15" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </shadow>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="u7n-ZW-LB4">
+                                <rect key="frame" x="24" y="17" width="11" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="mfM-1y-SaK">
+                                    <rect key="frame" x="1" y="1" width="9" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </shadow>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="mSH-t2-Jgm">
+                                <rect key="frame" x="18" y="6" width="17" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="LzN-om-Z13">
+                                    <rect key="frame" x="1" y="1" width="15" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </shadow>
+                            </box>
+                            <box fixedFrame="YES" boxType="custom" cornerRadius="1" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="KEK-BZ-S9t">
+                                <rect key="frame" x="4" y="6" width="11" height="3"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" ambiguous="YES" id="kw0-Od-Afd">
+                                    <rect key="frame" x="1" y="1" width="9" height="1"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <shadow key="shadow" blurRadius="1">
+                                    <size key="offset" width="-1" height="-1"/>
+                                    <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </shadow>
+                            </box>
+                        </subviews>
+                    </view>
+                    <shadow key="shadow" blurRadius="1">
+                        <size key="offset" width="-2" height="-2"/>
+                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </shadow>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="138" y="154"/>
+        </customView>
+        <customObject id="VAo-Tx-Dd9" customClass="StylesCollectionViewItem" customModule="Swiftlighter" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundBox" destination="f7V-bf-gZa" id="yjh-go-HzT"/>
+                <outlet property="commentBox" destination="mSH-t2-Jgm" id="TKj-mz-o3q"/>
+                <outlet property="keywordBox" destination="iqa-6d-RtG" id="X9L-W2-tni"/>
+                <outlet property="numBox" destination="u7n-ZW-LB4" id="ORL-DD-4jD"/>
+                <outlet property="stringBox" destination="KEK-BZ-S9t" id="yiF-4b-Jfd"/>
+                <outlet property="textBox" destination="RWL-2M-Grp" id="kIe-m8-a6f"/>
+                <outlet property="typeBox" destination="7Vf-em-HpU" id="nJr-cz-4Ur"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="Neh-fY-UWE"/>
+            </connections>
+        </customObject>
+    </objects>
+</document>
