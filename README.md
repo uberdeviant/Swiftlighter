@@ -28,4 +28,5 @@ Swiftlighter is licensed under the Apache 2.0 license
 ### Ramil Uberdeviant Salimoff
 
 * [Patreon](https://www.patreon.com/user?u=32639039)
-* [Twitter](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html)
+* [Twitter](https://twitter.com/mruberdeviant)
+* [Swiftlighter Page](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html)
