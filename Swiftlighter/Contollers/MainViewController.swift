@@ -57,40 +57,7 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
     var fontProfiles: [FontProfile] = []
     
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "webPreviewSegue"{
-            let webPreviewViewController = segue.destinationController as! WebPreviewViewController
-            webPreviewViewController.webCode = outputTextView.string
-        }else if segue.identifier == "addEditSegue"{
-            let styleCustomizationViewController = segue.destinationController as! ColourStyleCustomizationViewController
-            styleCustomizationViewController.delegate = self
-            
-            if isAddNewSegue{
-                if let selectedIndex = indexOfSelectedStyle{
-                    styleCustomizationViewController.isNewColour = true
-                    if colourStyles.count > selectedIndex{
-                        styleCustomizationViewController.colourStyleForEdit = colourStyles[selectedIndex]
-                    }
-                }else{
-                    styleCustomizationViewController.isNewColour = false
-                }
-            }else{
-                if let selectedIndex = indexOfSelectedStyle{
-                    if selectedIndex < colourStyles.count{
-                        styleCustomizationViewController.colourStyleForEdit = colourStyles[selectedIndex]
-                        styleCustomizationViewController.isNewColour = false
-                    }else{
-                        isAddNewSegue = true
-                        styleCustomizationViewController.isNewColour = true
-                    }
-                }
-            }
-        }else if segue.identifier == "editFontProfileSegue"{
-            let editProfileViewController = segue.destinationController as! EditFontProfileViewController
-            editProfileViewController.delegate = self
-            editProfileViewController.fontProfile = fontProfiles[indexOfFontProfile]
-        }
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,15 +98,9 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         stylesCollectionView.register(item, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "StylesCollectionViewItem"))
         stylesCollectionView.delegate = self
         stylesCollectionView.dataSource = self
-        
         // Do any additional setup after loading the view.
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
     
     func passColourStyle(colourStyle: ColourStyle) {
         if isAddNewSegue{
@@ -197,6 +158,11 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         
     }
     
+    func numberOfSections(in collectionView: NSCollectionView) -> Int {
+        return 1
+    }
+    
+    
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
         return colourStyles.count
     }
@@ -209,12 +175,15 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
     }
     
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        indexOfSelectedStyle = indexPaths.first?.item
+        guard let indexOfSelectedStyle = indexPaths.first?.item else {return}
+        self.indexOfSelectedStyle = indexOfSelectedStyle
         executeEngine()
         var set = Set<IndexPath>()
-        set.insert(IndexPath(item: indexOfSelectedStyle!, section: 0))
-        self.stylesCollectionView.deleteItems(at: set)
+        set.insert(IndexPath(item: indexOfSelectedStyle, section: 0))
         stylesCollectionView.deselectItems(at: set)
+        
+        deleteButton.isEnabled = true
+        editButton.isEnabled = true
         
     }
     
@@ -313,6 +282,40 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         }
     }
     
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if segue.identifier == "webPreviewSegue"{
+            let webPreviewViewController = segue.destinationController as! WebPreviewViewController
+            webPreviewViewController.webCode = outputTextView.string
+        }else if segue.identifier == "addEditSegue"{
+            let styleCustomizationViewController = segue.destinationController as! ColourStyleCustomizationViewController
+            styleCustomizationViewController.delegate = self
+            
+            if isAddNewSegue{
+                if let selectedIndex = indexOfSelectedStyle{
+                    styleCustomizationViewController.isNewColour = true
+                    if colourStyles.count > selectedIndex{
+                        styleCustomizationViewController.colourStyleForEdit = colourStyles[selectedIndex]
+                    }
+                }else{
+                    styleCustomizationViewController.isNewColour = false
+                }
+            }else{
+                if let selectedIndex = indexOfSelectedStyle{
+                    if selectedIndex < colourStyles.count{
+                        styleCustomizationViewController.colourStyleForEdit = colourStyles[selectedIndex]
+                        styleCustomizationViewController.isNewColour = false
+                    }else{
+                        isAddNewSegue = true
+                        styleCustomizationViewController.isNewColour = true
+                    }
+                }
+            }
+        }else if segue.identifier == "editFontProfileSegue"{
+            let editProfileViewController = segue.destinationController as! EditFontProfileViewController
+            editProfileViewController.delegate = self
+            editProfileViewController.fontProfile = fontProfiles[indexOfFontProfile]
+        }
+    }
     
 }
 
