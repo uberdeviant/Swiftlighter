@@ -8,92 +8,70 @@
 
 import Cocoa
 
-protocol ColourStyleCustomizationViewControllerDelegate{
+protocol ColourStyleCustomizationViewControllerDelegate: class{
     func passColourStyle(colourStyle: ColourStyle)
 }
 
 class ColourStyleCustomizationViewController: NSViewController{
     
+    
     @IBOutlet weak var colourStyleTextField: NSTextField!
     
     @IBOutlet weak var backgroundColourWell: NSColorWell!
-    
     @IBOutlet weak var backgroundColourTextField: NSTextField!
     
     @IBOutlet weak var texColourColourWell: NSColorWell!
-    
     @IBOutlet weak var textColourTextField: NSTextField!
     
     @IBOutlet weak var keywordColourWell: NSColorWell!
-    
     @IBOutlet weak var keywordColourTextField: NSTextField!
     
     @IBOutlet weak var commentColourWell: NSColorWell!
-    
     @IBOutlet weak var commentColourTextField: NSTextField!
     
     @IBOutlet weak var propertiesColourWell: NSColorWell!
-    
     @IBOutlet weak var propertiesTextField: NSTextField!
     
     @IBOutlet weak var methodsColourWell: NSColorWell!
-    
     @IBOutlet weak var methodsTextField: NSTextField!
     
-    
     @IBOutlet weak var typesColourWell: NSColorWell!
-    
     @IBOutlet weak var typesColourTextField: NSTextField!
     
     @IBOutlet weak var stringColourWell: NSColorWell!
-    
     @IBOutlet weak var stringColourTextField: NSTextField!
     
     @IBOutlet weak var numberColourWell: NSColorWell!
-    
     @IBOutlet weak var numberColourTextField: NSTextField!
     
     
     @IBOutlet weak var borderColourWell: NSColorWell!
-    
     @IBOutlet weak var borderColourTextField: NSTextField!
     
     @IBOutlet weak var borderButton: NSButton!
-    
     
     @IBOutlet weak var borderHashtagText: NSTextField!
     
     @IBOutlet weak var exampleBox: NSBox!
     
-    
     @IBOutlet weak var exampleKeywordText: NSTextField!
-    
     @IBOutlet weak var exampleText: NSTextField!
     
     @IBOutlet weak var exampleText1: NSTextField!
-    
     @IBOutlet weak var exampleNumber: NSTextField!
-    
     @IBOutlet weak var exampleKeywordText1: NSTextField!
-    
     @IBOutlet weak var exampleText2: NSTextField!
-    
     @IBOutlet weak var exampleText3: NSTextField!
-    
     @IBOutlet weak var exampleText4: NSTextField!
-    
     @IBOutlet weak var exampleText5: NSTextField!
     
     @IBOutlet weak var exampleMethodText: NSTextField!
-    
     @IBOutlet weak var examplePropertyText: NSTextField!
     
     @IBOutlet weak var exampleTypeText1: NSTextField!
-    
     @IBOutlet weak var exampleTypeText: NSTextField!
     
     @IBOutlet weak var exampleTextString: NSTextField!
-    
     @IBOutlet weak var exampleCommentText: NSTextField!
     
     @IBOutlet weak var saveButton: NSButton!
@@ -102,13 +80,12 @@ class ColourStyleCustomizationViewController: NSViewController{
     var colourStyleForEdit: ColourStyle?
     var isNewColour: Bool!
     
-    var delegate: ColourStyleCustomizationViewControllerDelegate?
+    weak var delegate: ColourStyleCustomizationViewControllerDelegate?
     
     var isBorder: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         connectDelegate()
         
     }

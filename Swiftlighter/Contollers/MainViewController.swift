@@ -26,9 +26,9 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
     @IBOutlet weak var selectAllAndCopyButton: NSButtonCell!
     
     
-    var engine: Engine!
+    private var engine: Engine!
     
-    var indexOfSelectedStyle: Int? = nil {
+    private var indexOfSelectedStyle: Int? = nil {
         willSet{
             if newValue == nil{
                 editButton.isEnabled = false
@@ -39,7 +39,7 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
             }
         }
     }
-    var indexOfFontProfile: Int = 0 {
+    private var indexOfFontProfile: Int = 0 {
         willSet{
             if newValue == 0{
                 editFontProfileButton.isEnabled = false
@@ -49,20 +49,41 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         }
     }
     
-    var isAddNewSegue: Bool = false
+    private var isAddNewSegue: Bool = false
     
     @IBOutlet weak var stylesCollectionView: NSCollectionView!
     
-    var colourStyles: [ColourStyle] = []
-    var fontProfiles: [FontProfile] = []
+    private var colourStyles: [ColourStyle] = []
+    private var fontProfiles: [FontProfile] = []
     
     
-    
+    //MARK: - Building
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fontProfilePopUp.removeAllItems()
+        updateUI()
+        updateFontProfiles()
+        updateColourStyles()
+    }
+    
+    private func updateUI(){
         linkButton.isBordered = false
+        editButton.isEnabled = false
+        deleteButton.isEnabled = false
+        styleTextLabel.stringValue = "Click on any Colour Style for launch..."
+        swiftTextView.isAutomaticQuoteSubstitutionEnabled = false
+        swiftTextView.isAutomaticDashSubstitutionEnabled = false
+        outputTextView.isAutomaticQuoteSubstitutionEnabled = false
+         
+        let item = NSNib(nibNamed: "StylesCollectionViewItem", bundle: nil)
+        
+        stylesCollectionView.register(item, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "StylesCollectionViewItem"))
+        stylesCollectionView.delegate = self
+        stylesCollectionView.dataSource = self
+    }
+    
+    private func updateFontProfiles(){
+        fontProfilePopUp.removeAllItems()
         var fontTitles: [String] = []
         
         if let loadProfiles = FontProfile.load(){
@@ -76,67 +97,14 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         fontProfilePopUp.addItems(withTitles: fontTitles)
         loadChosenFontProfileIndex()
         fontProfilePopUp.selectItem(at: indexOfFontProfile)
-        
-        
-        
-        editButton.isEnabled = false
-        deleteButton.isEnabled = false
-        
+    }
+
+    private func updateColourStyles(){
         if let styles = ColourStyle.load(){
             colourStyles = styles
         }else{
             colourStyles = [ColourStyle(colourStyleType: .dark), ColourStyle(colourStyleType: .space), ColourStyle(colourStyleType: .sunset), ColourStyle(colourStyleType: .light)]
         }
-        
-        styleTextLabel.stringValue = "Click on any Colour Style for launch..."
-        swiftTextView.isAutomaticQuoteSubstitutionEnabled = false
-        swiftTextView.isAutomaticDashSubstitutionEnabled = false
-        outputTextView.isAutomaticQuoteSubstitutionEnabled = false
-        
-        let item = NSNib(nibNamed: "StylesCollectionViewItem", bundle: nil)
-       
-        stylesCollectionView.register(item, forItemWithIdentifier: NSUserInterfaceItemIdentifier(rawValue: "StylesCollectionViewItem"))
-        stylesCollectionView.delegate = self
-        stylesCollectionView.dataSource = self
-        // Do any additional setup after loading the view.
-    }
-
-    
-    func passColourStyle(colourStyle: ColourStyle) {
-        if isAddNewSegue{
-            stylesCollectionView.performBatchUpdates({
-                self.colourStyles.append(colourStyle)
-                var set = Set<IndexPath>()
-                set.insert(IndexPath(item: self.colourStyles.count - 1, section: 0))
-                self.stylesCollectionView.insertItems(at: set)
-            }, completionHandler: nil)
-        }else{
-            guard let unwIndexOfStyle = indexOfSelectedStyle else{return}
-            
-            stylesCollectionView.performBatchUpdates({
-                self.colourStyles[unwIndexOfStyle] = colourStyle
-                var set = Set<IndexPath>()
-                set.insert(IndexPath(item: unwIndexOfStyle, section: 0))
-                self.stylesCollectionView.deleteItems(at: set)
-                self.stylesCollectionView.insertItems(at: set)
-                
-                self.executeEngine()
-            }, completionHandler: nil)
-        }
-        indexOfSelectedStyle = nil
-        ColourStyle.save(colourStylesArray: colourStyles)
-    }
-    func updateProfile(profile: FontProfile) {
-        fontProfiles[indexOfFontProfile] = profile
-        fontProfilePopUp.removeAllItems()
-        var profileTitles: [String] = []
-        for profile in fontProfiles{
-            profileTitles.append(profile.fontProfileTitle)
-        }
-        fontProfilePopUp.addItems(withTitles: profileTitles)
-        fontProfilePopUp.selectItem(at: indexOfFontProfile)
-        FontProfile.save(profileArray: fontProfiles)
-        executeEngine()
     }
     
     private func setUpCustomizationContoller(styleCustomizationViewController: ColourStyleCustomizationViewController,additionalString: String){
@@ -158,30 +126,7 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         
     }
     
-    func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 1
-    }
     
-    
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return colourStyles.count
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
-        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "StylesCollectionViewItem"), for: indexPath)
-        guard let myItem = item as? StylesCollectionViewItem else {return item}
-            let styleItem = myItem.updateItem(by: colourStyles[indexPath.item], item: myItem)
-        return styleItem
-    }
-    
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        guard let indexOfSelectedStyle = indexPaths.first?.item else {return}
-        self.indexOfSelectedStyle = indexOfSelectedStyle
-        executeEngine()
-        var set = Set<IndexPath>()
-        set.insert(IndexPath(item: indexOfSelectedStyle, section: 0))
-        stylesCollectionView.deselectItems(at: set)
-    }
     
     private func executeEngine(){
         guard let selectedIndex = indexOfSelectedStyle else {return}
@@ -266,6 +211,8 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
         performSegue(withIdentifier: "addEditSegue", sender: nil)
     }
     
+    //MARK: - Save and Load Font
+    
     private func saveChosenFontProfileIndex(){
         UserDefaults.standard.set(indexOfFontProfile, forKey: "swiftlighterChosenProfileIndex")
     }
@@ -277,6 +224,77 @@ class MainViewController: NSViewController, NSCollectionViewDelegate, NSCollecti
             }
         }
     }
+    
+    //MARK: - Collection View Delegate Methods
+    
+    func numberOfSections(in collectionView: NSCollectionView) -> Int {
+        return 1
+    }
+    
+    
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return colourStyles.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let item = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "StylesCollectionViewItem"), for: indexPath)
+        guard let myItem = item as? StylesCollectionViewItem else {return item}
+            let styleItem = myItem.updateItem(by: colourStyles[indexPath.item], item: myItem)
+        return styleItem
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let indexOfSelectedStyle = indexPaths.first?.item else {return}
+        self.indexOfSelectedStyle = indexOfSelectedStyle
+        executeEngine()
+        var set = Set<IndexPath>()
+        set.insert(IndexPath(item: indexOfSelectedStyle, section: 0))
+        stylesCollectionView.deselectItems(at: set)
+    }
+    
+    //MARK: - Colour style customisation Delegate method
+    
+    func passColourStyle(colourStyle: ColourStyle) {
+        if isAddNewSegue{
+            stylesCollectionView.performBatchUpdates({
+                self.colourStyles.append(colourStyle)
+                var set = Set<IndexPath>()
+                set.insert(IndexPath(item: self.colourStyles.count - 1, section: 0))
+                self.stylesCollectionView.insertItems(at: set)
+            }, completionHandler: nil)
+        }else{
+            guard let unwIndexOfStyle = indexOfSelectedStyle else{return}
+            
+            stylesCollectionView.performBatchUpdates({
+                self.colourStyles[unwIndexOfStyle] = colourStyle
+                var set = Set<IndexPath>()
+                set.insert(IndexPath(item: unwIndexOfStyle, section: 0))
+                self.stylesCollectionView.deleteItems(at: set)
+                self.stylesCollectionView.insertItems(at: set)
+                
+                self.executeEngine()
+            }, completionHandler: nil)
+        }
+        indexOfSelectedStyle = nil
+        ColourStyle.save(colourStylesArray: colourStyles)
+    }
+    
+    //MARK: - Font profile delegate method
+    
+    func updateProfile(profile: FontProfile) {
+        fontProfiles[indexOfFontProfile] = profile
+        fontProfilePopUp.removeAllItems()
+        var profileTitles: [String] = []
+        for profile in fontProfiles{
+            profileTitles.append(profile.fontProfileTitle)
+        }
+        fontProfilePopUp.addItems(withTitles: profileTitles)
+        fontProfilePopUp.selectItem(at: indexOfFontProfile)
+        FontProfile.save(profileArray: fontProfiles)
+        executeEngine()
+    }
+    
+    //MARK: - Navigation
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if segue.identifier == "webPreviewSegue"{

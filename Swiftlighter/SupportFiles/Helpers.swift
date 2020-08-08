@@ -11,7 +11,6 @@ import Foundation
 
 extension String{
     func isUppercased() -> Bool{
-        
         guard let firstLetter = self.first else {return false}
         let char = firstLetter.unicodeScalars.first
         if let unwChar = char{

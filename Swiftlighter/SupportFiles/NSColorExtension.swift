@@ -9,6 +9,7 @@
 import Cocoa
 
 extension NSColor{
+    
     public convenience init?(hexString: String) {
         let r, g, b, a: CGFloat
         

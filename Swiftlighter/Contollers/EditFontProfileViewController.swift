@@ -8,7 +8,7 @@
 
 import Cocoa
 
-protocol EditFontProfileViewControllerDelegate{
+protocol EditFontProfileViewControllerDelegate: class{
     func updateProfile(profile: FontProfile)
 }
 
@@ -31,7 +31,7 @@ class EditFontProfileViewController: NSViewController {
     
     var cssBlocks: [String] = []
     
-    var delegate: EditFontProfileViewControllerDelegate?
+    weak var delegate: EditFontProfileViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,7 +171,7 @@ class EditFontProfileViewController: NSViewController {
     }
     private func updateFieldLogic(){
         let fieldBlocks = cssTextField.stringValue.components(separatedBy: ";")
-        var indexesForRemove: [Int] = []
+        var indisesForRemove: [Int] = []
         for block in fieldBlocks{
             if block != ""{
                 if !cssBlocks.contains(block){
@@ -182,12 +182,12 @@ class EditFontProfileViewController: NSViewController {
         for (index,block) in cssBlocks.enumerated(){
             if block != ""{
                 if !fieldBlocks.contains(block){
-                    indexesForRemove.append(index)
+                    indisesForRemove.append(index)
                 }
             }
         }
-        let sortedIndexes = indexesForRemove.sorted(by: >)
-        for index in sortedIndexes{
+        let sortedIndises = indisesForRemove.sorted(by: >)
+        for index in sortedIndises{
             cssBlocks.remove(at: index)
         }
         updateCssTextField()
