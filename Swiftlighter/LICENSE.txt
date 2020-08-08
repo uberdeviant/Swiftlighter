@@ -2,7 +2,7 @@ Apache License
                         Version 2.0, January 2004
                      http://www.apache.org/licenses/
                      
-Copyright (c) 2019-2020 Ramil (Uberdeviant) Salimoff.
+Copyright (c) 2019-2020 Ramil (Uberdeviant) Salimov.
 
 TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 

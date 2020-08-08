@@ -1,7 +1,7 @@
 ![Swiftlighter Image](https://repository-images.githubusercontent.com/250987524/8b1ad700-71b6-11ea-82ca-9fc0100a6ca1)
 
 # Swiftlighter
-**Swift syntax highlighter**
+**Swift Syntax Highlighter**
 
 # About:
 
@@ -17,7 +17,9 @@
 
 ### Examples and help page:
 
-There is the main page of **Swiftlighter** with [Examples and Help](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html). You can donwload compiled Swiftlighter over there.
+There is the main page of **Swiftlighter** with [Examples and Help](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html).
+
+[Download DMG File](https://mr-uberdeviant.blogspot.com/p/swiftlighter.html)
 
 # License:
 
