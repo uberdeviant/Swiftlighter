@@ -184,7 +184,8 @@ struct Engine{
                     word = String(char)
                 case _ where word.isUppercased() && (char == "=" || char == " " || char == "\n" || char == "{" || char == "}" || char == "." || char == "(" || char == ")" || char == ":" || char == "+" || char == "-" || char == "*" || char == "/" || char == "?" || char == "!" || char == "," || char == "<" || char == ">" || char == "&" || char == "[" || char == "]"):
                     if previousWordAsAKey{
-                        safetyAppending(of: "<span style=\"color: \(colourStyle.textColour)\">\(word)</span>", to: &htmlText)
+                        safetyAppending(of: "<span style=\"color: \(colourStyle.typeColour)\">\(word)</span>", to: &htmlText)
+                        //new Xcode highlighting (textColour was used)
                         
                     }else{
                         safetyAppending(of: "<span style=\"color: \(colourStyle.typeColour)\">\(word)</span>", to: &htmlText)
@@ -253,7 +254,8 @@ struct Engine{
                     previousWordAsAKey = false
                 case _ where char == "(":
                     if isFuncDeclaring{
-                        safetyAppending(of: "<span style=\"color: \(colourStyle.textColour)\">\(word)</span>", to: &htmlText)
+                        safetyAppending(of: "<span style=\"color: \(colourStyle.propertyColour)\">\(word)</span>", to: &htmlText)
+                        //New Xcode highlighting (textColour was)
                         isFuncDeclaring = false
                     }else{
                         safetyAppending(of: "<span style=\"color: \(colourStyle.methodColour)\">\(word)</span>", to: &htmlText)
@@ -282,7 +284,7 @@ struct Engine{
                                 unwrappingIsUsed = false
                             }
                             wordIsGoingToBeAProperty = false
-                            safetyAppending(of: "<span style=\"color: \(colourStyle.textColour)\">\(word)</span>", to: &htmlText)
+                            safetyAppending(of: "<span style=\"color: \(colourStyle.propertyColour)\">\(word)</span>", to: &htmlText) // New XCode highlighting (textColour)
                             
                         }else if previousWordAsAKey || unwrappingIsUsed{
                             if propertyNeedsToBeDropped || unwrappingIsUsed{
